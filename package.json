@@ -103,7 +103,7 @@
   },
   "config": {
     "ghooks": {
-      "pre-push": "npm test"
+      "pre-push": "npm run lint"
     }
   }
 }
