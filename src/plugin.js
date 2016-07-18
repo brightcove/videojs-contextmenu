@@ -1,100 +1,157 @@
+/**
+ * @module plugin
+ */
 import videojs from 'video.js';
 
+/* eslint func-style: 0 */
+
 const defaults = {
-
-  // Whether or not to cancel the native "contextmenu" event when it is seen.
   cancel: true,
-
-  // The maximum number of pixels a finger can move because a touch is no
-  // longer considered to be "held".
   sensitivity: 10,
-
-  // The minimum number of milliseconds a touch must be "held" before it
-  // registers.
   wait: 500
 };
 
 const EVENT_NAME = 'vjs-contextmenu';
 
 /**
- * A cross-device context menu implementation for video.js players.
+ * Handles both touchcancel and touchend events.
  *
- * @function contextmenu
- * @param    {Object} [options={}]
- *           An object of options left to the plugin author to define.
+ * @private
+ * @param  {Event} e
  */
-const contextmenu = function(options) {
-  options = this.contextmenu = videojs.mergeOptions(defaults, options);
+function handleTouchEnd(e) {
+  const current = this.contextmenu.current;
 
-  let current = null;
+  if (!current) {
+    return;
+  }
 
-  const touchEnd = (e) => {
-    if (!current) {
-      return;
-    }
+  const wait = this.contextmenu.options.wait;
 
-    if (e.type === 'touchend' && Number(new Date()) - current.time >= options.wait) {
-      this.trigger(EVENT_NAME);
-    }
+  if (e.type === 'touchend' && Number(new Date()) - current.time >= wait) {
+    this.trigger(EVENT_NAME);
+  }
 
-    current = null;
+  this.contextmenu.current = null;
+}
+
+/**
+ * Handles touchmove events.
+ *
+ * @private
+ * @param  {Event} e
+ */
+function handleTouchMove(e) {
+  const current = this.contextmenu.current;
+
+  if (!current) {
+    return;
+  }
+
+  const touch = e.touches[0];
+  const sensitivity = this.contextmenu.options.sensitivity;
+
+  // Cancel the current touch if the pointer has moved in either direction
+  // more than the sensitivity number of pixels.
+  if (
+    touch.screenX - current.screenX > sensitivity ||
+    touch.screenY - current.screenY > sensitivity
+  ) {
+    this.contextmenu.current = null;
+  }
+}
+
+/**
+ * Handles touchstart events.
+ *
+ * @private
+ * @param  {Event} e
+ */
+function handleTouchStart(e) {
+
+  // We only care about the first touch point.
+  if (this.contextmenu.current) {
+    return;
+  }
+
+  const touch = e.touches[0];
+
+  this.contextmenu.current = {
+    screenX: touch.screenX,
+    screenY: touch.screenY,
+    time: Number(new Date())
   };
+}
 
-  const touchMove = (e) => {
-    if (!current) {
-      return;
-    }
-
-    const touch = e.touches[0];
-
-    // Cancel the current touch if the pointer has moved in either direction
-    // more than the sensitivity number of pixels.
-    if (
-      touch.screenX - current.x > options.sensitivity ||
-      touch.screenY - current.y > options.sensitivity
-    ) {
-      current = null;
-    }
-  };
-
-  const touchStart = (e) => {
-
-    // We only care about the first touch point.
-    if (current) {
-      return;
-    }
-
-    const touch = e.touches[0];
-
-    current = {
-      x: touch.screenX,
-      y: touch.screenY,
-      time: Number(new Date())
-    };
-  };
+/**
+ * Handles contextmenu events.
+ *
+ * @private
+ * @param  {Event} e
+ */
+function handleContextMenu(e) {
+  if (this.contextmenu.options.cancel) {
+    e.preventDefault();
+  }
 
   this.
-    on('contextmenu', (e) => {
-      if (options.cancel) {
-        e.preventDefault();
-      }
+    trigger(EVENT_NAME).
 
-      this.
-        trigger(EVENT_NAME).
+    // If we get a "contextmenu" event, we can rely on that going forward
+    // because this client supports it; so, we can stop listening for
+    // touch events.
+    off(['touchcancel', 'touchend'], handleTouchEnd).
+    off('touchmove', handleTouchMove).
+    off('touchstart', handleTouchStart);
+}
 
-        // If we get a "contextmenu" event, we can rely on that going forward
-        // because this client supports it; so, we can stop listening for
-        // touch events.
-        off(['touchcancel', 'touchend'], touchEnd).
-        off('touchmove', touchMove).
-        off('touchstart', touchStart);
-    }).
-    on(['touchcancel', 'touchend'], touchEnd).
-    on('touchmove', touchMove).
-    on('touchstart', touchStart);
+/**
+ * A cross-device context menu implementation for video.js players.
+ *
+ * @param    {Object}  [options={}]
+ * @param    {Boolean} [cancel=true]
+ *           Whether or not to cancel the native "contextmenu" event when
+ *           it is seen.
+ *
+ * @param    {Number} [sensitivity=10]
+ *           The maximum number of pixels a finger can move because a touch
+ *           is no longer considered to be "held".
+ *
+ * @param    {Number} [wait=500]
+ *           The minimum number of milliseconds a touch must be "held" before
+ *           it registers.
+ */
+function contextmenu(options) {
+  const isFirstInit = this.contextmenu === contextmenu;
+
+  if (isFirstInit) {
+
+    // Wrap the plugin function with an player instance-specific function. This
+    // allows us to attach the modal to it without affecting other players on
+    // the page.
+    this.contextmenu = function() {
+      contextmenu.apply(this, arguments);
+    };
+
+    this.contextmenu.VERSION = '__VERSION__';
+  }
+
+  this.contextmenu.options = videojs.mergeOptions(defaults, options);
+
+  // When re-initing, we only want to update options; so, we bail out to
+  // prevent any doubling-up of event listeners.
+  if (!isFirstInit) {
+    return;
+  }
+
+  this.
+    on('contextmenu', handleContextMenu).
+    on(['touchcancel', 'touchend'], handleTouchEnd).
+    on('touchmove', handleTouchMove).
+    on('touchstart', handleTouchStart);
 
   this.ready(() => this.addClass(EVENT_NAME));
-};
+}
 
 videojs.plugin('contextmenu', contextmenu);
 contextmenu.VERSION = '__VERSION__';

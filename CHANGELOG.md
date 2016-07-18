@@ -2,10 +2,10 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+* Properly deal with multiple invocations
 
 --------------------
 
 ## 1.0.0 (2016-07-11)
-_(none)_
+* Initial release
 
