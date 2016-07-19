@@ -14,6 +14,35 @@ const defaults = {
 const EVENT_NAME = 'vjs-contextmenu';
 
 /**
+ * Abstracts a DOM standard event into a vjs-contextmenu event.
+ *
+ * @private
+ * @param  {Player} player
+ * @param  {Event} event
+ *         A triggering, native event.
+ * @return {Player}
+ */
+function sendAbstractedEvent(player, event) {
+  const abstracted = {
+    target: player,
+    type: EVENT_NAME
+  };
+
+  [
+    'clientX',
+    'clientY',
+    'pageX',
+    'pageY',
+    'screenX',
+    'screenY'
+  ].forEach(k => {
+    abstracted[k] = event[k];
+  });
+
+  return player.trigger(abstracted);
+}
+
+/**
  * Handles both touchcancel and touchend events.
  *
  * @private
@@ -29,7 +58,7 @@ function handleTouchEnd(e) {
   const wait = this.contextmenu.options.wait;
 
   if (e.type === 'touchend' && Number(new Date()) - current.time >= wait) {
-    this.trigger(EVENT_NAME);
+    sendAbstractedEvent(this, e);
   }
 
   this.contextmenu.current = null;
@@ -94,8 +123,7 @@ function handleContextMenu(e) {
     e.preventDefault();
   }
 
-  this.
-    trigger(EVENT_NAME).
+  sendAbstractedEvent(this, e).
 
     // If we get a "contextmenu" event, we can rely on that going forward
     // because this client supports it; so, we can stop listening for
