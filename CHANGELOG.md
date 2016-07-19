@@ -2,7 +2,7 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+* Include positioning properties in the synthetic "vjs-contextmenu" event
 
 --------------------
 
