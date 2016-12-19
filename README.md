@@ -65,6 +65,13 @@ _Only used for detection of a long touch._ The maximum number of pixels a touch 
 
 _Only used for detection of a long touch._ The minimum number of milliseconds a touch must stay within the `sensitivity` range before it registers as a long touch.
 
+### `disabled`
+
+**Type**: Boolean
+**Default**: `false`
+
+If set to _true_, this option will disable firing `vjs-contextmenu`. Functionality can be restored at any time by setting **disabled** to false.
+
 ## Inclusion
 
 To include videojs-contextmenu on your website or web application, use any of the following methods.
