@@ -24,6 +24,10 @@ const EVENT_NAME = 'vjs-contextmenu';
  * @return {Player}
  */
 function sendAbstractedEvent(player, event) {
+  if (player.contextmenu.options.disabled) {
+    // videojs-contextmenu is disabled
+    return player;
+  }
   const abstracted = {
     target: player,
     type: EVENT_NAME
@@ -59,7 +63,7 @@ function handleTouchEnd(e) {
   const wait = this.contextmenu.options.wait;
 
   if (e.type === 'touchend' && Number(new Date()) - current.time >= wait) {
-    sendAbstractedEvent(this, e);
+    handleTouchStart(this, e);
   }
 
   this.contextmenu.current = null;
@@ -120,11 +124,7 @@ function handleTouchStart(e) {
  * @param  {Event} e
  */
 function handleContextMenu(e) {
-  if (this.contextmenu.options.disabled) {
-    // videojs-contextmenu is disabled
-    return;
-  }
-  if (this.contextmenu.options.cancel) {
+  if (this.contextmenu.options.cancel && !this.contextmenu.options.disabled) {
     e.preventDefault();
   }
 
