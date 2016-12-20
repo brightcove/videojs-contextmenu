@@ -2,7 +2,7 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+* [@bcvio](https://github.com/bcvio) Add option to disable/enable firing `vjs-contextmenu` ([#2](https://github.com/brightcove/videojs-contextmenu/pull/2))
 
 --------------------
 
