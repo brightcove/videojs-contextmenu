@@ -8,7 +8,8 @@ import videojs from 'video.js';
 const defaults = {
   cancel: true,
   sensitivity: 10,
-  wait: 500
+  wait: 500,
+  disabled: false
 };
 
 const EVENT_NAME = 'vjs-contextmenu';
@@ -23,6 +24,10 @@ const EVENT_NAME = 'vjs-contextmenu';
  * @return {Player}
  */
 function sendAbstractedEvent(player, event) {
+  if (player.contextmenu.options.disabled) {
+    // videojs-contextmenu is disabled
+    return player;
+  }
   const abstracted = {
     target: player,
     type: EVENT_NAME
@@ -119,7 +124,7 @@ function handleTouchStart(e) {
  * @param  {Event} e
  */
 function handleContextMenu(e) {
-  if (this.contextmenu.options.cancel) {
+  if (this.contextmenu.options.cancel && !this.contextmenu.options.disabled) {
     e.preventDefault();
   }
 
