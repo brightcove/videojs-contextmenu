@@ -128,14 +128,14 @@ function handleContextMenu(e) {
     e.preventDefault();
   }
 
-  sendAbstractedEvent(this, e).
+  sendAbstractedEvent(this, e);
 
-    // If we get a "contextmenu" event, we can rely on that going forward
-    // because this client supports it; so, we can stop listening for
-    // touch events.
-    off(['touchcancel', 'touchend'], handleTouchEnd).
-    off('touchmove', handleTouchMove).
-    off('touchstart', handleTouchStart);
+  // If we get a "contextmenu" event, we can rely on that going forward
+  // because this client supports it; so, we can stop listening for
+  // touch events.
+  this.off(['touchcancel', 'touchend'], handleTouchEnd);
+  this.off('touchmove', handleTouchMove);
+  this.off('touchstart', handleTouchStart);
 }
 
 /**
@@ -155,33 +155,20 @@ function handleContextMenu(e) {
  *           it registers.
  */
 function contextmenu(options) {
-  const isFirstInit = this.contextmenu === contextmenu;
-
-  if (isFirstInit) {
-
-    // Wrap the plugin function with an player instance-specific function. This
-    // allows us to attach the modal to it without affecting other players on
-    // the page.
-    this.contextmenu = function() {
-      contextmenu.apply(this, arguments);
-    };
-
-    this.contextmenu.VERSION = '__VERSION__';
-  }
-
   this.contextmenu.options = videojs.mergeOptions(defaults, options);
+  this.contextmenu.VERSION = '__VERSION__';
 
-  // When re-initing, we only want to update options; so, we bail out to
-  // prevent any doubling-up of event listeners.
-  if (!isFirstInit) {
-    return;
-  }
+  this.on('contextmenu', handleContextMenu);
+  this.on(['touchcancel', 'touchend'], handleTouchEnd);
+  this.on('touchmove', handleTouchMove);
+  this.on('touchstart', handleTouchStart);
 
-  this.
-    on('contextmenu', handleContextMenu).
-    on(['touchcancel', 'touchend'], handleTouchEnd).
-    on('touchmove', handleTouchMove).
-    on('touchstart', handleTouchStart);
+  this.on('dispose', () => {
+    this.off('contextmenu', handleContextMenu);
+    this.off(['touchcancel', 'touchend'], handleTouchEnd);
+    this.off('touchmove', handleTouchMove);
+    this.off('touchstart', handleTouchStart);
+  });
 
   this.ready(() => this.addClass(EVENT_NAME));
 }

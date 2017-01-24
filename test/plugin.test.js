@@ -43,8 +43,8 @@ QUnit.module('videojs-contextmenu', {
 
 QUnit.test('registers itself with video.js', function(assert) {
   assert.strictEqual(
-    Player.prototype.contextmenu,
-    plugin,
+    typeof Player.prototype.contextmenu,
+    'function',
     'videojs-contextmenu plugin was registered'
   );
 
