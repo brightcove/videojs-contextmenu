@@ -163,13 +163,6 @@ function contextmenu(options) {
   this.on('touchmove', handleTouchMove);
   this.on('touchstart', handleTouchStart);
 
-  this.on('dispose', () => {
-    this.off('contextmenu', handleContextMenu);
-    this.off(['touchcancel', 'touchend'], handleTouchEnd);
-    this.off('touchmove', handleTouchMove);
-    this.off('touchstart', handleTouchStart);
-  });
-
   this.ready(() => this.addClass(EVENT_NAME));
 }
 
