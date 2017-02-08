@@ -2,12 +2,12 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+* Get rid of deprecation warnings for video.js 6 and update Travis builds
 
 --------------------
 
 ## 1.2.1 (2017-01-26)
-_(none)_
+* video.js 5/6 cross compatibility
 
 ## 1.2.0 (2016-12-20)
 * [@bcvio](https://github.com/bcvio) Add option to disable/enable firing `vjs-contextmenu` ([#2](https://github.com/brightcove/videojs-contextmenu/pull/2))
