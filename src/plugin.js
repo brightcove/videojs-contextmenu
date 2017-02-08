@@ -3,6 +3,9 @@
  */
 import videojs from 'video.js';
 
+// vjs 5/6 cross compatibility.
+const registerPlugin = videojs.registerPlugin || videojs.plugin;
+
 /* eslint func-style: 0 */
 
 const defaults = {
@@ -166,7 +169,7 @@ function contextmenu(options) {
   this.ready(() => this.addClass(EVENT_NAME));
 }
 
-videojs.plugin('contextmenu', contextmenu);
+registerPlugin('contextmenu', contextmenu);
 contextmenu.VERSION = '__VERSION__';
 
 export default contextmenu;
