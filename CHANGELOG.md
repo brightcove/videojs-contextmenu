@@ -2,9 +2,12 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-* Get rid of deprecation warnings for video.js 6 and update Travis builds
+_(none)_
 
 --------------------
+
+## 1.2.2 (2017-02-08)
+* Get rid of deprecation warnings for video.js 6 and update Travis builds
 
 ## 1.2.1 (2017-01-26)
 * video.js 5/6 cross compatibility
