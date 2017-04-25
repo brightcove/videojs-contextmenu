@@ -22,9 +22,13 @@ const EVENT_NAME = 'vjs-contextmenu';
  *
  * @private
  * @param  {Player} player
+ *         The player
+ *
  * @param  {Event} event
  *         A triggering, native event.
+ *
  * @return {Player}
+ *         The player
  */
 function sendAbstractedEvent(player, event) {
   if (player.contextmenu.options.disabled) {
@@ -55,6 +59,7 @@ function sendAbstractedEvent(player, event) {
  *
  * @private
  * @param  {Event} e
+ *         The touchend/touch cancel even that called this function
  */
 function handleTouchEnd(e) {
   const current = this.contextmenu.current;
@@ -77,6 +82,7 @@ function handleTouchEnd(e) {
  *
  * @private
  * @param  {Event} e
+ *         The touch move event that called this function
  */
 function handleTouchMove(e) {
   const current = this.contextmenu.current;
@@ -103,6 +109,7 @@ function handleTouchMove(e) {
  *
  * @private
  * @param  {Event} e
+ *         The touch start event that called this function
  */
 function handleTouchStart(e) {
 
@@ -125,6 +132,7 @@ function handleTouchStart(e) {
  *
  * @private
  * @param  {Event} e
+ *         The event that called this function
  */
 function handleContextMenu(e) {
   if (this.contextmenu.options.cancel && !this.contextmenu.options.disabled) {
@@ -145,15 +153,17 @@ function handleContextMenu(e) {
  * A cross-device context menu implementation for video.js players.
  *
  * @param    {Object}  [options={}]
- * @param    {Boolean} [cancel=true]
+ *           An option object
+ *
+ * @param    {boolean} [cancel=true]
  *           Whether or not to cancel the native "contextmenu" event when
  *           it is seen.
  *
- * @param    {Number} [sensitivity=10]
+ * @param    {number} [sensitivity=10]
  *           The maximum number of pixels a finger can move because a touch
  *           is no longer considered to be "held".
  *
- * @param    {Number} [wait=500]
+ * @param    {number} [wait=500]
  *           The minimum number of milliseconds a touch must be "held" before
  *           it registers.
  */
