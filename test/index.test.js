@@ -1,8 +1,8 @@
 import document from 'global/document';
-import QUnit from 'qunit';
+import QUnit from 'qunitjs';
 import sinon from 'sinon';
 import videojs from 'video.js';
-import plugin from '../src/plugin';
+import plugin from '../src/js';
 
 const Player = videojs.getComponent('Player');
 
@@ -70,9 +70,15 @@ QUnit.test('sends a "vjs-contextmenu" on long touch', function(assert) {
   });
 
   this.clock.tick(1000);
-  assert.notOk(this.spy.called, '"vjs-contextmenu" was not triggered between "touchstart" and "touchend"');
+  assert.notOk(
+    this.spy.called,
+    '"vjs-contextmenu" was not triggered between "touchstart" and "touchend"'
+  );
   this.player.trigger({type: 'touchend'});
-  assert.ok(this.spy.calledOnce, '"vjs-contextmenu" was triggered once a "touchend" triggered');
+  assert.ok(
+    this.spy.calledOnce,
+    '"vjs-contextmenu" was triggered once a "touchend" triggered'
+  );
 });
 
 QUnit.test('stops listening for touches if it encounters a native "contextmenu" event', function(assert) {
@@ -122,7 +128,10 @@ QUnit.test('will not fire "vjs-contextmenu" if the touch point has moved beyond 
     type: 'touchend'
   });
 
-  assert.notOk(this.spy.called, '"vjs-contextmenu" was not triggered because the touch point moved');
+  assert.notOk(
+    this.spy.called,
+    '"vjs-contextmenu" was not triggered because the touch point moved'
+  );
 
   this.player.trigger({
     type: 'touchstart',
@@ -146,5 +155,8 @@ QUnit.test('will not fire "vjs-contextmenu" if the touch point has moved beyond 
     type: 'touchend'
   });
 
-  assert.notOk(this.spy.called, '"vjs-contextmenu" was not triggered because the touch point moved');
+  assert.notOk(
+    this.spy.called,
+    '"vjs-contextmenu" was not triggered because the touch point moved'
+  );
 });
