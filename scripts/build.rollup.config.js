@@ -9,8 +9,6 @@ const pkg = require(path.resolve(__dirname, '../package.json'));
 export default {
   moduleName: 'videojsContextmenu',
   entry: 'src/plugin.js',
-  dest: 'dist/videojs-contextmenu.js',
-  format: 'umd',
   external: ['video.js'],
   globals: {
     'video.js': 'videojs'
@@ -32,6 +30,7 @@ export default {
     }),
     babel({
       babelrc: false,
+      exclude: 'node_modules/**',
       presets: [
         'es3',
         ['es2015', {
@@ -44,5 +43,10 @@ export default {
         'transform-object-assign'
       ]
     })
+  ],
+  targets: [
+    {dest: 'dist/videojs-contextmenu.js', format: 'umd'},
+    {dest: 'dist/videojs-contextmenu.cjs.js', format: 'cjs'},
+    {dest: 'dist/videojs-contextmenu.es.js', format: 'es'}
   ]
 };

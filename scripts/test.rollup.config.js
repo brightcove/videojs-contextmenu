@@ -38,6 +38,7 @@ export default {
     }),
     babel({
       babelrc: false,
+      exclude: 'node_modules/**',
       presets: [
         'es3',
         ['es2015', {
