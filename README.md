@@ -12,12 +12,6 @@ For purposes of this plugin, a **long touch** is defined as a single touch which
 npm install --save videojs-contextmenu
 ```
 
-The npm installation is preferred, but Bower works, too.
-
-```sh
-bower install --save videojs-contextmenu
-```
-
 ## Usage
 
 The plugin is invoked as a method of a video.js `Player` object:
