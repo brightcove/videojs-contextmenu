@@ -1,30 +1,31 @@
+/**
+ * Rollup configuration for packaging the plugin in a module that is consumable
+ * as the `src` of a `script` tag or via AMD or similar client-side loading.
+ *
+ * This module DOES include its dependencies.
+ */
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
-import replace from 'rollup-plugin-replace';
+import json from 'rollup-plugin-json';
 import resolve from 'rollup-plugin-node-resolve';
-import path from 'path';
-
-const pkg = require(path.resolve(__dirname, '../package.json'));
 
 export default {
   moduleName: 'videojsContextmenu',
   entry: 'src/plugin.js',
+  dest: 'dist/videojs-contextmenu.js',
+  format: 'umd',
   external: ['video.js'],
   globals: {
     'video.js': 'videojs'
   },
   legacy: true,
   plugins: [
-    replace({
-      delimiters: ['__', '__'],
-      include: 'src/plugin.js',
-      VERSION: pkg.version
-    }),
     resolve({
       browser: true,
       main: true,
       jsnext: true
     }),
+    json(),
     commonjs({
       sourceMap: false
     }),
@@ -43,10 +44,5 @@ export default {
         'transform-object-assign'
       ]
     })
-  ],
-  targets: [
-    {dest: 'dist/videojs-contextmenu.js', format: 'umd'},
-    {dest: 'dist/videojs-contextmenu.cjs.js', format: 'cjs'},
-    {dest: 'dist/videojs-contextmenu.es.js', format: 'es'}
   ]
 };

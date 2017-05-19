@@ -6,9 +6,10 @@
   "scripts": {
     "prebuild": "npm run clean",
     "build": "npm-run-all -p build:*",
-    "build:js": "npm-run-all build:js:rollup build:js:bannerize build:js:uglify",
+    "build:js": "npm-run-all build:js:rollup-modules build:js:rollup-umd build:js:bannerize build:js:uglify",
     "build:js:bannerize": "bannerize dist/videojs-contextmenu.js --banner=scripts/banner.ejs",
-    "build:js:rollup": "rollup -c scripts/build.rollup.config.js",
+    "build:js:rollup-modules": "rollup -c scripts/modules.rollup.config.js",
+    "build:js:rollup-umd": "rollup -c scripts/umd.rollup.config.js",
     "build:js:uglify": "uglifyjs dist/videojs-contextmenu.js --comments --mangle --compress --ie8 -o dist/videojs-contextmenu.min.js",
     "build:test": "rollup -c scripts/test.rollup.config.js",
     "clean": "rimraf dist test/dist",
@@ -22,7 +23,8 @@
     "preversion": "npm test",
     "version": "node scripts/version.js",
     "watch": "npm-run-all -p watch:*",
-    "watch:js": "rollup -c scripts/build.rollup.config.js -w",
+    "watch:js-modules": "rollup -c scripts/modules.rollup.config.js -w",
+    "watch:js-umd": "rollup -c scripts/umd.rollup.config.js -w",
     "watch:test": "rollup -c scripts/test.rollup.config.js -w",
     "prepublish": "npm run build",
     "prepush": "npm run lint"
@@ -35,7 +37,7 @@
   "license": "Apache-2.0",
   "module": "dist/videojs-contextmenu.es.js",
   "generator-videojs-plugin": {
-    "version": "5.0.0-5"
+    "version": "5.0.0-7"
   },
   "vjsstandard": {
     "ignore": [
@@ -84,9 +86,9 @@
     "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-json": "^2.1.1",
     "rollup-plugin-multi-entry": "^2.0.1",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-replace": "^1.1.1",
     "rollup-watch": "^3.2.2",
     "semver": "^5.3.0",
     "sinon": "^2.2.0",
