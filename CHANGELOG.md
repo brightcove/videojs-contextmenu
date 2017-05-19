@@ -1,10 +1,13 @@
-CHANGELOG
-=========
+<a name="2.0.0"></a>
+# 2.0.0 (2017-05-19)
 
-## HEAD (Unreleased)
-_(none)_
+### Chores
 
---------------------
+* Update tooling using generator v5 prerelease. (#6) ([f2d587b](https://github.com/brightcove/videojs-contextmenu/commit/f2d587b))
+
+### BREAKING CHANGES
+
+* Remove Bower support.
 
 ## 1.2.2 (2017-02-08)
 * Get rid of deprecation warnings for video.js 6 and update Travis builds
