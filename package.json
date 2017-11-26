@@ -37,13 +37,12 @@
   "license": "Apache-2.0",
   "module": "dist/videojs-contextmenu.es.js",
   "generator-videojs-plugin": {
-    "version": "5.0.0-7"
+    "version": "5.0.3"
   },
   "vjsstandard": {
     "ignore": [
       "dist",
       "docs",
-      "scripts",
       "test/dist",
       "test/karma.conf.js"
     ]
@@ -83,7 +82,7 @@
     "npm-run-all": "^4.0.2",
     "qunitjs": "^1.21.0",
     "rimraf": "^2.6.1",
-    "rollup": "^0.41.6",
+    "rollup": "^0.50.0",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-json": "^2.1.1",
