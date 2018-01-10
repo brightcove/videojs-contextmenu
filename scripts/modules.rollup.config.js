@@ -9,14 +9,21 @@ import babel from 'rollup-plugin-babel';
 import json from 'rollup-plugin-json';
 
 export default {
-  name: 'videojsContextmenu',
   input: 'src/plugin.js',
   output: [{
     file: 'dist/videojs-contextmenu.cjs.js',
-    format: 'cjs'
+    format: 'cjs',
+    globals: {
+      'video.js': 'videojs'
+    },
+    name: 'videojsContextmenu'
   }, {
     file: 'dist/videojs-contextmenu.es.js',
-    format: 'es'
+    format: 'es',
+    globals: {
+      'video.js': 'videojs'
+    },
+    name: 'videojsContextmenu'
   }],
   external: [
     'global',
@@ -24,9 +31,6 @@ export default {
     'global/window',
     'video.js'
   ],
-  globals: {
-    'video.js': 'videojs'
-  },
   legacy: true,
   plugins: [
     json(),
