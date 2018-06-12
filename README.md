@@ -1,3 +1,23 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [videojs-contextmenu](#videojs-contextmenu)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Options](#options)
+    - [`cancel`](#cancel)
+    - [`sensitivity`](#sensitivity)
+    - [`wait`](#wait)
+    - [`disabled`](#disabled)
+  - [Inclusion](#inclusion)
+    - [`<script>` Tag](#script-tag)
+    - [Browserify](#browserify)
+    - [RequireJS/AMD](#requirejsamd)
+  - [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # videojs-contextmenu
 
 A cross-device context menu implementation for video.js players.
