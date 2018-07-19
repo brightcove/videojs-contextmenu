@@ -1,5 +1,7 @@
 # videojs-contextmenu
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/brightcove/videojs-contextmenu.svg)](https://greenkeeper.io/)
+
 A cross-device context menu implementation for video.js players.
 
 Most desktop browsers support the [DOM standard `contextmenu` event][contextmenu], but some mobile browsers, lacking a right mouse button, do not. This plugin will fire a custom `vjs-contextmenu` event when it sees a `contextmenu` event _or_ after a long touch.
