@@ -1,18 +1,12 @@
 # videojs-contextmenu
 
-[![Build Status](https://travis-ci.org/brightcove/videojs-contextmenu.svg?branch=master)](https://travis-ci.org/brightcove/videojs-contextmenu)
-[![Greenkeeper badge](https://badges.greenkeeper.io/brightcove/videojs-contextmenu.svg)](https://greenkeeper.io/)
-[![Slack Status](http://slack.videojs.com/badge.svg)](http://slack.videojs.com)
-
-[![NPM](https://nodei.co/npm/videojs-contextmenu.png?downloads=true&downloadRank=true)](https://nodei.co/npm/videojs-contextmenu/)
-
 A cross-device context menu implementation for video.js players.
 
 Most desktop browsers support the [DOM standard `contextmenu` event][contextmenu], but some mobile browsers, lacking a right mouse button, do not. This plugin will fire a custom `vjs-contextmenu` event when it sees a `contextmenu` event _or_ after a long touch.
 
 For purposes of this plugin, a **long touch** is defined as a single touch which is held for a customizable number of milliseconds. In the intervening time, the touch must not move except within a customizable sensitivity range.
 
-Maintenance Status: Stable
+Maintenance Status: **Archived/Unmaintained**
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
