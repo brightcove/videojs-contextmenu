@@ -2,6 +2,7 @@
  * @module plugin
  */
 import videojs from 'video.js';
+import {version as VERSION} from '../package.json';
 
 // vjs 5/6 cross compatibility.
 const registerPlugin = videojs.registerPlugin || videojs.plugin;
@@ -170,6 +171,6 @@ function contextmenu(options) {
 }
 
 registerPlugin('contextmenu', contextmenu);
-contextmenu.VERSION = '__VERSION__';
+contextmenu.VERSION = VERSION;
 
 export default contextmenu;
