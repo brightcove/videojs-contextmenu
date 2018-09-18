@@ -1,5 +1,13 @@
 # videojs-contextmenu
 
+**DEPRECATED Please use https://github.com/brightcove/videojs-contextmenu-ui**
+
+[![Build Status](https://travis-ci.org/brightcove/videojs-contextmenu.svg?branch=master)](https://travis-ci.org/brightcove/videojs-contextmenu)
+[![Greenkeeper badge](https://badges.greenkeeper.io/brightcove/videojs-contextmenu.svg)](https://greenkeeper.io/)
+[![Slack Status](http://slack.videojs.com/badge.svg)](http://slack.videojs.com)
+
+[![NPM](https://nodei.co/npm/videojs-contextmenu.png?downloads=true&downloadRank=true)](https://nodei.co/npm/videojs-contextmenu/)
+
 A cross-device context menu implementation for video.js players.
 
 Most desktop browsers support the [DOM standard `contextmenu` event][contextmenu], but some mobile browsers, lacking a right mouse button, do not. This plugin will fire a custom `vjs-contextmenu` event when it sees a `contextmenu` event _or_ after a long touch.
